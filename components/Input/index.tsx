@@ -25,7 +25,7 @@ const Input = memo((props: any) => {
     <div className="bg-gray-100 w-10/12  p-2 mb-2 flex items-center">
       {getIcon(name)}
       <input
-        {...methods?.register(name)}
+        {...methods?.register(name,{required:true})}
         {...props}
         className="bg-gray-100 outline-none w-full"
       />

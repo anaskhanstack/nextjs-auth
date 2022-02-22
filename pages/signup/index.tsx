@@ -60,7 +60,7 @@ const Signup: NextPage = () => {
           <p className="mb-4 text-center">
             Fill up personal information and start journey with us
           </p>
-          <p className="mb-4">If already have account then</p>
+          <p className="mb-4 text-sm">If already have account then</p>
           <button
             onClick={handleClick}
             className="border-2 border-white rounded-full px-12 py-2"

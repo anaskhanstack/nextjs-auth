@@ -1,6 +1,8 @@
+import { useContext } from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useForm, FormProvider } from "react-hook-form";
+import { AuthContext } from "../../context/context";
 
 import Input from "../../components/Input";
 import SocialLogin from "../../components/SocialLogin";
@@ -13,13 +15,21 @@ interface LoginFormData {
 const Login: NextPage = () => {
   const router = useRouter();
   const methods = useForm<LoginFormData>();
+  const { login } = useContext(AuthContext);
 
   const handleClick = (e: any) => {
     e.preventDefault();
     router.push("/signup");
   };
 
-  const onSubmit = (data: object) => console.log(data);
+  const onSubmit = async (data: object) => {
+    const isSuccessfull = await login(data);
+    if(isSuccessfull)
+    {
+      router.push('/')
+    }
+    console.log(data,isSuccessfull, "----- requested payload -----");
+  };
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
@@ -70,7 +80,7 @@ const Login: NextPage = () => {
           <p className="mb-4 text-center">
             Fill up personal information and start journey with us
           </p>
-          <p className="mb-2">If you don't have account then</p>
+          <p className="mb-2 text-sm">If you don't have account then</p>
           <button
             onClick={handleClick}
             className="border-2 border-white rounded-full px-12 py-2"
