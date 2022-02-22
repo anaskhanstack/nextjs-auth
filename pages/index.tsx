@@ -1,14 +1,24 @@
 import type { NextPage } from "next";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { useRouter } from "next/router";
+import Cookies from "universal-cookie";
+
 import { AuthContext } from "../context/context";
-import Cookies from 'universal-cookie';
 
 const Home: NextPage = () => {
-  const user = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const cookies = new Cookies();
 
-  console.log(user,cookies.get("user"), "This is the user");
-  
+  console.log(user, "This is my  user");
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      let check = cookies.get("user");
+      if (!check) router.push("/login");
+    }
+  }, [user]);
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
       <h1>Welcome User</h1>

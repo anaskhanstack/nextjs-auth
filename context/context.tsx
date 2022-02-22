@@ -3,7 +3,7 @@ import Cookies from "universal-cookie";
 
 interface Auth {
   user: object | null;
-  login: Function;
+  onLogin: Function;
   onLogout: Function;
   onRegister: Function;
   authReady: Boolean;
@@ -17,7 +17,7 @@ interface User {
 
 export const AuthContext = createContext<Auth>({
   user: null,
-  login: () => {},
+  onLogin: () => {},
   onLogout: () => {},
   onRegister: () => {},
   authReady: false,
@@ -36,7 +36,7 @@ export const AuthContextProvider = ({ children }: any) => {
     }
   }, []);
 
-  const login = (param: User) => {
+  const onLogin = (param: User) => {
     const userList = cookies?.get("userList");
     if (!userList) return false;
 
@@ -74,7 +74,7 @@ export const AuthContextProvider = ({ children }: any) => {
 
   const context: Auth = {
     user,
-    login,
+    onLogin,
     onLogout,
     onRegister,
     authReady,

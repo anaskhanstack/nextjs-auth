@@ -5,8 +5,8 @@ import { useContext } from "react";
 
 import { AuthContext } from "../../context/context";
 
-import Input from "../../components/Input";
 import SocialLogin from "../../components/SocialLogin";
+import Input from "../../components/Input";
 
 interface LoginFormData {
   email: string;
@@ -15,8 +15,9 @@ interface LoginFormData {
 
 const Login: NextPage = () => {
   const router = useRouter();
+
+  const { onLogin } = useContext(AuthContext);
   const methods = useForm<LoginFormData>();
-  const { login } = useContext(AuthContext);
 
   const handleClick = (e: any) => {
     e.preventDefault();
@@ -24,12 +25,11 @@ const Login: NextPage = () => {
   };
 
   const onSubmit = async (data: object) => {
-    const isSuccessfull = await login(data);
-    if(isSuccessfull)
-    {
-      router.push('/')
+    const isSuccessfull = await onLogin(data);
+
+    if (isSuccessfull) {
+      router.push("/");
     }
-    console.log(data,isSuccessfull, "----- requested payload -----");
   };
 
   return (

@@ -1,11 +1,13 @@
 import type { NextPage } from "next";
-import Input from "../../components/Input";
-import { useRouter } from "next/router";
-import { useForm, FormProvider } from "react-hook-form";
 import { useContext } from "react";
-import { AuthContext } from "../../context/context";
-import {nanoid} from 'nanoid'
+
+import { useForm, FormProvider } from "react-hook-form";
+import { useRouter } from "next/router";
+import { nanoid } from "nanoid";
+
 import SocialLogin from "../../components/SocialLogin";
+import { AuthContext } from "../../context/context";
+import Input from "../../components/Input";
 
 interface LoginFormData {
   username: string;
@@ -24,11 +26,11 @@ const Signup: NextPage = () => {
   };
 
   const onSubmit = (data: object) => {
-    const isSuccessfull = onRegister({_id: nanoid(), ...data})
-    if(isSuccessfull){
-      router.push('/')
+    const isSuccessfull = onRegister({ _id: nanoid(), ...data });
+    if (isSuccessfull) {
+      router.push("/");
     }
-  }
+  };
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
