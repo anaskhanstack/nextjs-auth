@@ -1,7 +1,8 @@
-import { useContext } from "react";
 import type { NextPage } from "next";
-import { useRouter } from "next/router";
 import { useForm, FormProvider } from "react-hook-form";
+import { useRouter } from "next/router";
+import { useContext } from "react";
+
 import { AuthContext } from "../../context/context";
 
 import Input from "../../components/Input";

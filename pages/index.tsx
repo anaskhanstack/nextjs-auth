@@ -1,10 +1,13 @@
 import type { NextPage } from "next";
 import { useContext } from "react";
 import { AuthContext } from "../context/context";
+import Cookies from 'universal-cookie';
 
 const Home: NextPage = () => {
   const user = useContext(AuthContext);
-  console.log(user, "This is the user");
+  const cookies = new Cookies();
+
+  console.log(user,cookies.get("user"), "This is the user");
   
   return (
     <main className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">

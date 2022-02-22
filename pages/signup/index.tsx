@@ -1,8 +1,11 @@
 import type { NextPage } from "next";
 import Input from "../../components/Input";
-import SocialLogin from "../../components/SocialLogin";
 import { useRouter } from "next/router";
 import { useForm, FormProvider } from "react-hook-form";
+import { useContext } from "react";
+import { AuthContext } from "../../context/context";
+import {nanoid} from 'nanoid'
+import SocialLogin from "../../components/SocialLogin";
 
 interface LoginFormData {
   username: string;
@@ -11,6 +14,8 @@ interface LoginFormData {
 }
 const Signup: NextPage = () => {
   const router = useRouter();
+  const { onRegister } = useContext(AuthContext);
+
   const methods = useForm<LoginFormData>();
 
   const handleClick = (e: any) => {
@@ -18,7 +23,12 @@ const Signup: NextPage = () => {
     router.push("/login");
   };
 
-  const onSubmit = (data: object) => console.log(data);
+  const onSubmit = (data: object) => {
+    const isSuccessfull = onRegister({_id: nanoid(), ...data})
+    if(isSuccessfull){
+      router.push('/')
+    }
+  }
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
