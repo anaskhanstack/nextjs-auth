@@ -1,5 +1,8 @@
 import React, { createContext, useEffect } from "react";
 import Cookies from "universal-cookie";
+import axios from "axios";
+
+const BASE_URL = "http://localhost:3000";
 
 interface Auth {
   user: object | null;
@@ -36,20 +39,19 @@ export const AuthContextProvider = ({ children }: any) => {
     }
   }, []);
 
-  const onLogin = (param: User) => {
-    const userList = cookies?.get("userList");
-    if (!userList) return false;
-
-    const check = userList?.find(
-      (user: User) =>
-        user.email === param.email && user.password === param.password
-    );
-
-    if (check?._id) {
-      cookies.set("user", JSON.stringify(check));
-      setUser(check);
-
-      return true;
+  const onLogin = async (param: User) => {
+    try {
+      const users = await axios.get(`${BASE_URL}/users`);
+      const filteredUser = users.data.find(
+        (user: User) =>
+          user.email === param.email && user.password === param.password
+      );
+      if (filteredUser?.id) {
+        setUser(filteredUser);
+        return true;
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -57,19 +59,25 @@ export const AuthContextProvider = ({ children }: any) => {
     console.log("logged out");
   };
 
-  const onRegister = (data: object) => {
-    const cookies = new Cookies();
-    const userList = cookies?.get("userList");
+  const onRegister = async (data: User) => {
+    try {
+      const users = await axios.get(`${BASE_URL}/users`);
+      const filteredUser = users.data.find(
+        (user: User) => user.email === data.email
+      );
 
-    if (!userList) cookies.set("userList", JSON.stringify([data]));
-    else {
-      cookies.set("userList", JSON.stringify([...userList, data]));
+      if (filteredUser?.id) {
+        console.log("Already Exist");
+        return false;
+      } else {
+        const resp = await axios.post(`${BASE_URL}/users`, data);
+        setUser(data);
+        console.log(resp);
+        return true;
+      }
+    } catch (e) {
+      console.log(e);
     }
-
-    cookies.set("user", JSON.stringify(data));
-    setUser(data);
-
-    return true;
   };
 
   const context: Auth = {

@@ -3,7 +3,6 @@ import { useContext } from "react";
 
 import { useForm, FormProvider } from "react-hook-form";
 import { useRouter } from "next/router";
-import { nanoid } from "nanoid";
 
 import SocialLogin from "../../components/SocialLogin";
 import { AuthContext } from "../../context/context";
@@ -25,8 +24,8 @@ const Signup: NextPage = () => {
     router.push("/login");
   };
 
-  const onSubmit = (data: object) => {
-    const isSuccessfull = onRegister({ _id: nanoid(), ...data });
+  const onSubmit = async (data: object) => {
+    const isSuccessfull = await onRegister(data);
     if (isSuccessfull) {
       router.push("/");
     }

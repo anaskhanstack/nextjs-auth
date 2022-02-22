@@ -1,21 +1,16 @@
 import type { NextPage } from "next";
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
-import Cookies from "universal-cookie";
 
 import { AuthContext } from "../context/context";
 
 const Home: NextPage = () => {
   const { user } = useContext(AuthContext);
-  const cookies = new Cookies();
-
-  console.log(user, "This is my  user");
   const router = useRouter();
 
   useEffect(() => {
     if (!user) {
-      let check = cookies.get("user");
-      if (!check) router.push("/login");
+      router.push("/login");
     }
   }, [user]);
 
