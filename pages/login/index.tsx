@@ -64,7 +64,7 @@ const Login: NextPage = () => {
             </form>
           </FormProvider>
         </div>
-        <div className="bg-blue-300 flex flex-col items-center text-white rounded-tr-2xl rounded-br-2xl py-36 px-12">
+        <div className="bg-gradient-to-r from-blue-400 to-blue-300 flex flex-col items-center text-white rounded-tr-2xl rounded-br-2xl py-36 px-12">
           <h2 className="text-3xl font-bold mb-2">Welcome</h2>
 
           <p className="mb-4 text-center">
