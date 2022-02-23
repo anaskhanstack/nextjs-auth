@@ -3,7 +3,7 @@ import { FaEnvelope, FaUserAlt, FaKey } from "react-icons/fa";
 import { useFormContext } from "react-hook-form";
 
 const Input = memo((props: any) => {
-  const { name } = props;
+  const { name, validate, error } = props;
   const methods = useFormContext();
 
   function getIcon(name: string) {
@@ -22,10 +22,14 @@ const Input = memo((props: any) => {
     }
   }
   return (
-    <div className="bg-gray-100 w-10/12  p-2 mb-2 flex items-center">
+    <div
+      className={`bg-gray-100 w-10/12  p-2 mb-2 flex items-center ${
+        error ? "border-2 border-red-500" : ""
+      }`}
+    >
       {getIcon(name)}
       <input
-        {...methods?.register(name,{required:true})}
+        {...methods?.register(name, { required: true, ...validate })}
         {...props}
         className="bg-gray-100 outline-none w-full"
       />

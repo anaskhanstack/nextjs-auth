@@ -12,12 +12,16 @@ interface LoginFormData {
   username: string;
   email: string;
   password: string;
+  authError: string;
 }
 const Signup: NextPage = () => {
   const router = useRouter();
   const { onRegister } = useContext(AuthContext);
 
   const methods = useForm<LoginFormData>();
+  const {
+    formState: { errors },
+  }: any = methods;
 
   const handleClick = (e: any) => {
     e.preventDefault();
@@ -26,7 +30,12 @@ const Signup: NextPage = () => {
 
   const onSubmit = async (data: object) => {
     const isSuccessfull = await onRegister(data);
-    if (isSuccessfull) {
+
+    if (isSuccessfull?.message) {
+      methods?.setError("authError", {
+        message: isSuccessfull?.message,
+      });
+    } else {
       router.push("/");
     }
   };
@@ -54,11 +63,17 @@ const Signup: NextPage = () => {
 
               <Input placeholder="Name" type="name" name="username" />
               <Input placeholder="Email" type="email" name="email" />
+
               <Input placeholder="Password" type="password" name="password" />
 
               <button className="bg-blue-300 text-white rounded-full px-12 py-2 my-2">
                 Sign Up
               </button>
+              {errors?.authError && (
+                <p className="text-xs text-red-500">
+                  {errors?.authError.message}
+                </p>
+              )}
             </div>
           </form>
         </FormProvider>

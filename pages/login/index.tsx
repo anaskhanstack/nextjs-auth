@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useForm, FormProvider } from "react-hook-form";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { AuthContext } from "../../context/context";
 
@@ -15,10 +15,15 @@ interface LoginFormData {
 
 const Login: NextPage = () => {
   const router = useRouter();
-
   const { onLogin, user } = useContext(AuthContext);
-  
+  const [msg, setMsg] = useState();
+
   const methods = useForm<LoginFormData>();
+  const {
+    formState: { errors },
+  }: any = methods;
+
+  console.log(errors, "This is the error");
 
   const handleClick = (e: any) => {
     e.preventDefault();
@@ -26,11 +31,14 @@ const Login: NextPage = () => {
   };
 
   const onSubmit = async (data: object) => {
-    const isSuccessfull = await onLogin(data);
-
-    if (isSuccessfull) {
-      router.push("/");
-    }
+    try {
+      const isSuccessfull = await onLogin(data);
+      if (isSuccessfull?.message) {
+        setMsg(isSuccessfull?.message);
+      } else {
+        router.push("/");
+      }
+    } catch (e) {}
   };
 
   return (
@@ -53,12 +61,32 @@ const Login: NextPage = () => {
                 or use your email account
               </p>
 
-              <Input placeholder="Email" type="email" name="email" />
+              <Input
+                placeholder="Email"
+                type="email"
+                name="email"
+                error={errors?.email || null}
+              />
+              {errors?.email && (
+                <p className="text-xs text-red-500 mb-2">
+                  Please enter an email address or phone number
+                </p>
+              )}
               <Input
                 placeholder="Password"
-                type="password" 
+                type="password"
                 name="password"
+                error={errors?.password || null}
+                validate={{
+                  minLength: 6,
+                  message: "password must be greater then 6 characters",
+                }}
               />
+              {errors?.password && (
+                <p className="text-xs text-red-500  mb-2">
+                  The password you provided must have at least 6 characters.
+                </p>
+              )}
 
               <div className="flex justify-around mt-2 w-full">
                 <div className="flex items-center space-x-2 ">
@@ -77,6 +105,7 @@ const Login: NextPage = () => {
               >
                 Sign in
               </button>
+              {msg && <p className="text-xs text-red-500">{msg}</p>}
             </form>
           </FormProvider>
         </div>

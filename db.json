@@ -12,6 +12,12 @@
       "email": "anas.khan6960@gmail.com",
       "password": "qwerty",
       "id": 1
+    },
+    {
+      "username": "asda",
+      "email": "anas@yopmail.com",
+      "password": "asdsad",
+      "id": 2
     }
   ]
 }
