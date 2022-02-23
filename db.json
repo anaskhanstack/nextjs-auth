@@ -12,6 +12,13 @@
       "email": "anas.khan6960@gmail.com",
       "password": "qwerty",
       "id": 1
+    },
+    {
+      "username": "Mubeen Qazi",
+      "email": "mubeen@yopmail.com",
+      "password": "qwerty",
+      "datepicker": "2021-04-21T19:00:00.000Z",
+      "id": 2
     }
   ]
 }

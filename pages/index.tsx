@@ -11,7 +11,7 @@ const Home: NextPage = () => {
   const { user, onLogout } = useContext<IAuthContext>(AuthContext);
 
   return (
-    <Container>
+    <>
       <Navbar>
         <Nav>
           <ul className="flex items-center">
@@ -32,12 +32,14 @@ const Home: NextPage = () => {
           </ul>
         </Nav>
       </Navbar>
-      <div className="flex flex-col items-center justify-center">
-        <h1>
-          Welcome {user?.username}, <strong>{user?.email}</strong>
-        </h1>
-      </div>
-    </Container>
+      <Container>
+        <div className="flex flex-col min-h-screen  items-center justify-center">
+          <h1>
+            Welcome {user?.username}, <strong>{user?.email}</strong>
+          </h1>
+        </div>
+      </Container>
+    </>
   );
 };
 

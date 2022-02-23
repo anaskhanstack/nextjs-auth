@@ -1,4 +1,5 @@
 import React, { createContext, useEffect } from "react";
+import { useRouter } from "next/router";
 import Cookies from "universal-cookie";
 
 import axios from "axios";
@@ -30,6 +31,7 @@ const initialValue = {
 export const AuthContext = createContext<IAuthContext>(initialValue);
 
 export const AuthContextProvider = ({ children }: any) => {
+  const router = useRouter();
   const [user, setUser]: any = React.useState(null);
   const cookies = new Cookies();
   const authReady = false;
@@ -66,6 +68,7 @@ export const AuthContextProvider = ({ children }: any) => {
   const onLogout = () => {
     cookies.remove("user");
     setUser(null);
+    router.push("/login");
   };
 
   const onRegister = async (data: User) => {

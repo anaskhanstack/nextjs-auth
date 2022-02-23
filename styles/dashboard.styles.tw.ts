@@ -5,8 +5,10 @@ export const Container = styled.main.attrs({
 })``;
 
 export const Navbar = styled.div.attrs({
-  className: "flex-1 flex flex-col ",
-})``;
+  className: "flex-1 flex flex-col w-full",
+})`
+ position: fixed;
+`;
 
 export const Nav = styled.nav.attrs({
   className:
