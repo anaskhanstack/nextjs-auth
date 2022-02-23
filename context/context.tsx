@@ -1,4 +1,6 @@
 import React, { createContext, useEffect } from "react";
+import Cookies from "universal-cookie";
+
 import axios from "axios";
 
 const BASE_URL = "http://localhost:3000";
@@ -27,8 +29,17 @@ export const AuthContext = createContext<Auth>({
 
 export const AuthContextProvider = ({ children }: any) => {
   const [user, setUser]: any = React.useState(null);
-
+  const cookies = new Cookies();
   const authReady = false;
+
+  useEffect(() => {
+    if (!user) {
+      const session = cookies.get("user");
+      if (session) {
+        setUser(session);
+      }
+    }
+  }, [user]);
 
   const onLogin = async (param: User) => {
     try {
@@ -38,7 +49,9 @@ export const AuthContextProvider = ({ children }: any) => {
           user.email === param.email && user.password === param.password
       );
       if (filteredUser?.id) {
+        cookies.set("user", JSON.stringify(filteredUser));
         setUser(filteredUser);
+
         return true;
       } else {
         throw { message: "Enter correct email or password" };
@@ -49,7 +62,8 @@ export const AuthContextProvider = ({ children }: any) => {
   };
 
   const onLogout = () => {
-    console.log("logged out");
+    cookies.remove("user");
+    setUser(null);
   };
 
   const onRegister = async (data: User) => {
@@ -58,7 +72,7 @@ export const AuthContextProvider = ({ children }: any) => {
       const filteredUser = users.data.find(
         (user: User) => user.email === data.email
       );
-      console.log(filteredUser);
+
       if (filteredUser?.id) {
         throw { message: "Email Already Exist" };
       } else {

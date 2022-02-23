@@ -1,16 +1,21 @@
 import type { NextPage } from "next";
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
+import Cookies from "universal-cookie";
 import Avatar from "react-avatar";
 
+import { IoIosLogOut } from "react-icons/io";
 import { AuthContext } from "../context/context";
 
 const Home: NextPage = () => {
-  const { user }: any = useContext(AuthContext);
+  const { user, onLogout }: any = useContext(AuthContext);
+  const cookies = new Cookies();
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
+    const session = cookies.get("user");
+
+    if (!session?.id) {
       router.push("/login");
     }
   }, [user, router]);
@@ -24,6 +29,13 @@ const Home: NextPage = () => {
           </ul>
 
           <ul className="flex items-center">
+            <IoIosLogOut
+              onClick={onLogout}
+              type="button"
+              size={30}
+              color="white"
+              className="m-4 cursor-pointer	"
+            />
             <li className="h-10 w-10">
               <Avatar name={user?.username} size="40px" round />
             </li>
