@@ -68,8 +68,8 @@ const Login: NextPage = () => {
                 error={errors?.email || null}
               />
               {errors?.email && (
-                <p className="text-xs text-red-500 mb-2">
-                  Please enter an email address or phone number
+                <p className="text-xs text-red-500 mb-2 w-10/12">
+                  Please enter your email address.
                 </p>
               )}
               <Input
@@ -83,7 +83,7 @@ const Login: NextPage = () => {
                 }}
               />
               {errors?.password && (
-                <p className="text-xs text-red-500  mb-2">
+                <p className="text-xs text-red-500  mb-2 w-10/12">
                   The password you provided must have at least 6 characters.
                 </p>
               )}

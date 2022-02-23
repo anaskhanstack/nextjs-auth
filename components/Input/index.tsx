@@ -24,7 +24,7 @@ const Input = memo((props: any) => {
   return (
     <div
       className={`bg-gray-100 w-10/12  p-2 mb-2 flex items-center ${
-        error ? "border-2 border-red-500" : ""
+        error ? "border border-red-500" : ""
       }`}
     >
       {getIcon(name)}

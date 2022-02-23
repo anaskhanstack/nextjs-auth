@@ -18,6 +18,12 @@
       "email": "anas@yopmail.com",
       "password": "asdsad",
       "id": 2
+    },
+    {
+      "username": "Farhan",
+      "email": "farhan@yopmail.com",
+      "password": "solo123",
+      "id": 3
     }
   ]
 }

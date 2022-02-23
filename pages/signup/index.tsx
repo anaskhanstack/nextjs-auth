@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { useForm, FormProvider } from "react-hook-form";
 import { useRouter } from "next/router";
@@ -17,6 +17,7 @@ interface LoginFormData {
 const Signup: NextPage = () => {
   const router = useRouter();
   const { onRegister } = useContext(AuthContext);
+  const [msg, setMsg] = useState();
 
   const methods = useForm<LoginFormData>();
   const {
@@ -32,9 +33,7 @@ const Signup: NextPage = () => {
     const isSuccessfull = await onRegister(data);
 
     if (isSuccessfull?.message) {
-      methods?.setError("authError", {
-        message: isSuccessfull?.message,
-      });
+      setMsg(isSuccessfull?.message);
     } else {
       router.push("/");
     }
@@ -61,19 +60,49 @@ const Signup: NextPage = () => {
                 or use your email account
               </p>
 
-              <Input placeholder="Name" type="name" name="username" />
-              <Input placeholder="Email" type="email" name="email" />
+              <Input
+                placeholder="Name"
+                type="name"
+                name="username"
+                error={errors?.username || null}
+              />
+              {errors?.username && (
+                <p className="text-xs text-red-500  mb-2 w-10/12">
+                  Please enter username.
+                </p>
+              )}
+              <Input
+                placeholder="Email"
+                type="email"
+                name="email"
+                error={errors?.email || null}
+              />
+              {errors?.email && (
+                <p className="text-xs text-red-500 mb-2 w-10/12">
+                  Please enter your email address.
+                </p>
+              )}
 
-              <Input placeholder="Password" type="password" name="password" />
+              <Input
+                placeholder="Password"
+                type="password"
+                name="password"
+                error={errors?.password || null}
+                validate={{
+                  minLength: 6,
+                  message: "password must be greater then 6 characters",
+                }}
+              />
+              {errors?.password && (
+                <p className="text-xs text-red-500  mb-2 w-10/12">
+                  The password you provided must have at least 6 characters.
+                </p>
+              )}
 
               <button className="bg-blue-300 text-white rounded-full px-12 py-2 my-2">
                 Sign Up
               </button>
-              {errors?.authError && (
-                <p className="text-xs text-red-500">
-                  {errors?.authError.message}
-                </p>
-              )}
+              {msg && <p className="text-xs text-red-500">{msg}</p>}
             </div>
           </form>
         </FormProvider>
