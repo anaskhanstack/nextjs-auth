@@ -49,6 +49,8 @@ export const AuthContextProvider = ({ children }: any) => {
       if (filteredUser?.id) {
         setUser(filteredUser);
         return true;
+      } else {
+        throw { message: "Enter correct email or password" };
       }
     } catch (e) {
       console.log(e);
@@ -67,8 +69,7 @@ export const AuthContextProvider = ({ children }: any) => {
       );
 
       if (filteredUser?.id) {
-        console.log("Already Exist");
-        return false;
+        throw { message: "Email Already Exist" };
       } else {
         const resp = await axios.post(`${BASE_URL}/users`, data);
         setUser(data);

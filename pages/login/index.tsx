@@ -16,7 +16,8 @@ interface LoginFormData {
 const Login: NextPage = () => {
   const router = useRouter();
 
-  const { onLogin } = useContext(AuthContext);
+  const { onLogin, user } = useContext(AuthContext);
+  
   const methods = useForm<LoginFormData>();
 
   const handleClick = (e: any) => {
@@ -53,7 +54,11 @@ const Login: NextPage = () => {
               </p>
 
               <Input placeholder="Email" type="email" name="email" />
-              <Input placeholder="Password" type="password" name="password" />
+              <Input
+                placeholder="Password"
+                type="password" 
+                name="password"
+              />
 
               <div className="flex justify-around mt-2 w-full">
                 <div className="flex items-center space-x-2 ">
