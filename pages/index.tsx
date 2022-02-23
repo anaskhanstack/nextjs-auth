@@ -1,24 +1,12 @@
 import type { NextPage } from "next";
-import { useContext, useEffect } from "react";
-import { useRouter } from "next/router";
-import Cookies from "universal-cookie";
+import { useContext } from "react";
 import Avatar from "react-avatar";
 
 import { IoIosLogOut } from "react-icons/io";
-import { AuthContext } from "../context/context";
+import { AuthContext, IAuthContext } from "../context/context";
 
 const Home: NextPage = () => {
-  const { user, onLogout }: any = useContext(AuthContext);
-  const cookies = new Cookies();
-  const router = useRouter();
-
-  useEffect(() => {
-    const session = cookies.get("user");
-
-    if (!session?.id) {
-      router.push("/login");
-    }
-  }, [user, router]);
+  const { user, onLogout } = useContext<IAuthContext>(AuthContext);
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -43,7 +31,9 @@ const Home: NextPage = () => {
         </nav>
       </div>
       <div className="flex flex-col items-center justify-center">
-        <h1>Welcome {user?.username}</h1>
+        <h1>
+          Welcome {user?.username}, <strong>{user?.email}</strong>
+        </h1>
       </div>
     </div>
   );

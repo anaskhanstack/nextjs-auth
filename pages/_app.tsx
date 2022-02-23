@@ -1,18 +1,16 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { AuthContextProvider } from "../context/context";
-
-const initial = {
-  user: null,
-  login: () => {},
-  logout: () => {},
-  authReady: false,
-};
+import PrivateRoutes from "../components/PrivateRoutes";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const protectedRoutes: [string] = ["/"];
+
   return (
     <AuthContextProvider>
-      <Component {...pageProps} />
+      <PrivateRoutes protectedRoutes={protectedRoutes}>
+        <Component {...pageProps} />
+      </PrivateRoutes>
     </AuthContextProvider>
   );
 }

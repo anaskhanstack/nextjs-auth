@@ -1,23 +1,35 @@
-const withAuth = (Component: any) => {
-  const Auth = (props: any) => {
-    // Login data added to props via redux-store (or use react context for example)
-    const { isLoggedIn } = props;
+import { useEffect, useContext } from "react";
+import { useRouter } from "next/router";
+import Cookies from "universal-cookie";
 
-    // If user is not logged in, return login component
-    if (!isLoggedIn) {
-      // return <Login />;
+import { AuthContext } from "../../context/context";
+
+interface PrivateRoute {
+  protectedRoutes: [string];
+  children: any;
+}
+
+export default function PrivateRoute({
+  protectedRoutes,
+  children,
+}: PrivateRoute) {
+  const router = useRouter();
+  const cookies = new Cookies();
+
+  const { user } = useContext(AuthContext);
+
+  const pathIsProtected = protectedRoutes.indexOf(router.pathname) !== -1;
+  const authCheck = ["/login", "/signup"];
+
+  useEffect(() => {
+    const session = cookies.get("user");
+
+    if (!session && pathIsProtected) {
+      router.push("/login");
+    } else if (authCheck.includes(router.pathname) && session) {
+      router.push("/");
     }
+  }, [user, pathIsProtected]);
 
-    // If user is logged in, return original component
-    return <Component {...props} />;
-  };
-
-  // Copy getInitial props so it will run as well
-  if (Component.getInitialProps) {
-    Auth.getInitialProps = Component.getInitialProps;
-  }
-
-  return Auth;
-};
-
-export default withAuth;
+  return children;
+}

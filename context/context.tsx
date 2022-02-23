@@ -5,27 +5,29 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:3000";
 
-interface Auth {
-  user: object | null;
-  onLogin: Function;
-  onLogout: Function;
-  onRegister: Function;
-  authReady: Boolean;
-}
-
 interface User {
-  name?: string;
+  username?: string;
   email: string;
   password: string;
 }
 
-export const AuthContext = createContext<Auth>({
+export interface IAuthContext {
+  user: User | null;
+  onLogin: (param: any) => any;
+  onLogout: (param: any) => void;
+  onRegister: (param: any) => any;
+  authReady: Boolean;
+}
+
+const initialValue = {
   user: null,
   onLogin: () => {},
   onLogout: () => {},
   onRegister: () => {},
   authReady: false,
-});
+};
+
+export const AuthContext = createContext<IAuthContext>(initialValue);
 
 export const AuthContextProvider = ({ children }: any) => {
   const [user, setUser]: any = React.useState(null);
@@ -85,7 +87,7 @@ export const AuthContextProvider = ({ children }: any) => {
     }
   };
 
-  const context: Auth = {
+  const context: IAuthContext = {
     user,
     onLogin,
     onLogout,
