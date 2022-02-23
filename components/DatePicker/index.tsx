@@ -14,7 +14,7 @@ export default function DatePickerUI(props: any) {
     <Date error={props.error}>
       <FaRegCalendarAlt className="mr-2" color="gray" />
       <Controller
-        name="datepicker"
+        name="dob"
         control={methods?.control}
         rules={{ required: true }}
         render={({ field: { onChange, value } }): any => (

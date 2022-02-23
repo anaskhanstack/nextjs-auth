@@ -10,6 +10,7 @@ interface User {
   username?: string;
   email: string;
   password: string;
+  dob?: string;
 }
 
 export interface IAuthContext {
