@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
 
 import { useForm, FormProvider } from "react-hook-form";
+
 import { useRouter } from "next/router";
 import type { NextPage } from "next";
 
 import SocialLogin from "@components/SocialLogin";
+import DatePicker from "@components/DatePicker";
 import { AuthContext } from "@context/context";
 import Input from "@components/Input";
 
@@ -98,6 +100,7 @@ const Signup: NextPage = () => {
                 </Error>
               )}
 
+              <DatePicker />
               <PrimaryBtn type="submit">Sign Up</PrimaryBtn>
               {msg && <p className="text-xs text-red-500">{msg}</p>}
             </div>
