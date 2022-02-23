@@ -1,7 +1,7 @@
-import { useEffect, useContext } from "react";
+import { useLayoutEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import Cookies from "universal-cookie";
-
+import Login from "../../pages/login";
 import { AuthContext } from "../../context/context";
 
 interface PrivateRoute {
@@ -15,15 +15,14 @@ export default function PrivateRoute({
 }: PrivateRoute) {
   const router = useRouter();
   const cookies = new Cookies();
+  const session = cookies.get("user");
 
   const { user } = useContext(AuthContext);
 
   const pathIsProtected = protectedRoutes.indexOf(router.pathname) !== -1;
   const authCheck = ["/login", "/signup"];
 
-  useEffect(() => {
-    const session = cookies.get("user");
-
+  useLayoutEffect(() => {
     if (!session && pathIsProtected) {
       router.push("/login");
     } else if (authCheck.includes(router.pathname) && session) {
@@ -31,5 +30,5 @@ export default function PrivateRoute({
     }
   }, [user, pathIsProtected]);
 
-  return children;
+  return !session ? <Login /> : children;
 }

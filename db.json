@@ -8,28 +8,10 @@
   ],
   "users": [
     {
-      "username": "Anas Khan",
+      "username": "Anas",
       "email": "anas.khan6960@gmail.com",
       "password": "qwerty",
       "id": 1
-    },
-    {
-      "username": "asda",
-      "email": "anas@yopmail.com",
-      "password": "asdsad",
-      "id": 2
-    },
-    {
-      "username": "Farhan",
-      "email": "farhan@yopmail.com",
-      "password": "solo123",
-      "id": 3
-    },
-    {
-      "username": "Yop",
-      "email": "yop@yop.com",
-      "password": "qwerty",
-      "id": 4
     }
   ]
 }

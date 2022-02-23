@@ -79,6 +79,7 @@ export const AuthContextProvider = ({ children }: any) => {
         throw { message: "Email Already Exist" };
       } else {
         await axios.post(`${BASE_URL}/users`, data);
+        cookies.set("user", JSON.stringify(filteredUser));
         setUser(data);
         return true;
       }

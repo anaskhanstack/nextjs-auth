@@ -40,10 +40,11 @@ const Signup: NextPage = () => {
 
   const onSubmit = async (data: object) => {
     const isSuccessfull = await onRegister(data);
-
+    console.log(isSuccessfull, "This is success");
     if (isSuccessfull?.message) {
       setMsg(isSuccessfull?.message);
     } else {
+      console.log("i am in");
       router.push("/");
     }
   };
