@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 import { FaEnvelope, FaUserAlt, FaKey } from "react-icons/fa";
 import { useFormContext } from "react-hook-form";
+import { InputField, InputUI } from "./input.style.tw";
 
 const Input = memo((props: any) => {
   const { name, validate, error } = props;
@@ -22,18 +23,13 @@ const Input = memo((props: any) => {
     }
   }
   return (
-    <div
-      className={`bg-gray-100 w-10/12  p-2 mb-2 flex items-center ${
-        error ? "border border-red-500" : ""
-      }`}
-    >
+    <InputField error={error}>
       {getIcon(name)}
-      <input
+      <InputUI
         {...methods?.register(name, { required: true, ...validate })}
         {...props}
-        className="bg-gray-100 outline-none w-full"
       />
-    </div>
+    </InputField>
   );
 });
 

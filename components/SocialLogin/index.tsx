@@ -1,6 +1,6 @@
 import { FaFacebookF, FaLinkedinIn, FaGoogle } from "react-icons/fa";
 
-export default function SocialLogin(props: any) {
+export default function SocialLogin() {
   return (
     <div className="flex mb-4 mt-2">
       <div className="rounded-full border-2 p-2 mr-2">

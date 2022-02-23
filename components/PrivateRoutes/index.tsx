@@ -30,5 +30,5 @@ export default function PrivateRoute({
     }
   }, [user, pathIsProtected]);
 
-  return !session ? <Login /> : children;
+  return children;
 }

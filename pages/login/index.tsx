@@ -25,12 +25,13 @@ interface LoginFormData {
 const Login: NextPage = () => {
   const router = useRouter();
   const { onLogin } = useContext(AuthContext);
-  const [msg, setMsg] = useState();
+  const [msg, setMsg] = useState<string>();
 
   const methods = useForm<LoginFormData>();
+
   const {
     formState: { errors },
-  }: any = methods;
+  } = methods;
 
   const handleClick = (e: any) => {
     e.preventDefault();
