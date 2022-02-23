@@ -7,6 +7,15 @@ import { useRouter } from "next/router";
 import SocialLogin from "../../components/SocialLogin";
 import { AuthContext } from "../../context/context";
 import Input from "../../components/Input";
+import {
+  Container,
+  CardContainer,
+  Form,
+  PrimaryBtn,
+  SecondaryBtn,
+  SideSection,
+} from "../../styles/auth.styles.tw";
+import { Error, LineHorizontal } from "../../styles/global.styles.tw";
 
 interface LoginFormData {
   username: string;
@@ -40,13 +49,10 @@ const Signup: NextPage = () => {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
-      <div className="bg-white rounded-2xl shadow-2xl flex w-2/3  max-w-4xl">
+    <Container>
+      <CardContainer>
         <FormProvider {...methods}>
-          <form
-            onSubmit={methods.handleSubmit(onSubmit)}
-            className="w-4/5 p-5 flex flex-col"
-          >
+          <Form onSubmit={methods.handleSubmit(onSubmit)}>
             <div className="font-bold text-left">
               <span className="text-blue-300">Onboarding</span>
             </div>
@@ -54,7 +60,7 @@ const Signup: NextPage = () => {
               <h2 className="text-3xl font-bold text-blue-300 mb-2">
                 Register your Account
               </h2>
-              <div className="border-2 border-blue-300 w-1/5 mb-2"></div>
+              <LineHorizontal blue />
               <SocialLogin />
               <p className="text-gray-400 text-small mb-3">
                 or use your email account
@@ -66,22 +72,14 @@ const Signup: NextPage = () => {
                 name="username"
                 error={errors?.username || null}
               />
-              {errors?.username && (
-                <p className="text-xs text-red-500  mb-2 w-10/12">
-                  Please enter username.
-                </p>
-              )}
+              {errors?.username && <Error>Please enter username.</Error>}
               <Input
                 placeholder="Email"
                 type="email"
                 name="email"
                 error={errors?.email || null}
               />
-              {errors?.email && (
-                <p className="text-xs text-red-500 mb-2 w-10/12">
-                  Please enter your email address.
-                </p>
-              )}
+              {errors?.email && <Error>Please enter your email address.</Error>}
 
               <Input
                 placeholder="Password"
@@ -94,37 +92,29 @@ const Signup: NextPage = () => {
                 }}
               />
               {errors?.password && (
-                <p className="text-xs text-red-500  mb-2 w-10/12">
+                <Error>
                   The password you provided must have at least 6 characters.
-                </p>
+                </Error>
               )}
 
-              <button className="bg-blue-300 text-white rounded-full px-12 py-2 my-2">
-                Sign Up
-              </button>
+              <PrimaryBtn type="submit">Sign Up</PrimaryBtn>
               {msg && <p className="text-xs text-red-500">{msg}</p>}
             </div>
-          </form>
+          </Form>
         </FormProvider>
-        <div
-          className={`bg-gradient-to-r from-blue-400 to-blue-300 flex flex-col items-center text-white rounded-tr-2xl rounded-br-2xl py-36 px-12`}
-        >
+        <SideSection>
           <h2 className="text-3xl font-bold mb-2">Welcome!</h2>
 
-          <div className="border-2 border-white w-1/5 mb-2"></div>
+          <LineHorizontal />
+
           <p className="mb-4 text-center">
             Fill up personal information and start journey with us
           </p>
           <p className="mb-4 text-sm">If already have account then</p>
-          <button
-            onClick={handleClick}
-            className="border-2 border-white rounded-full px-12 py-2"
-          >
-            Sign In
-          </button>
-        </div>
-      </div>
-    </main>
+          <SecondaryBtn onClick={handleClick}>Sign In</SecondaryBtn>
+        </SideSection>
+      </CardContainer>
+    </Container>
   );
 };
 
