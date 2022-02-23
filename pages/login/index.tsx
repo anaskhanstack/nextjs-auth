@@ -111,7 +111,7 @@ const Login: NextPage = () => {
           <p className="mb-4 text-center">
             Fill up personal information and start journey with us
           </p>
-          <p className="mb-2 text-sm">If you don't have account then</p>
+          <p className="mb-2 text-sm">If you don&apos;t have account then</p>
           <SecondaryBtn onClick={handleClick}>Sign Up</SecondaryBtn>
         </SideSection>
       </CardContainer>

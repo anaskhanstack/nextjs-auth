@@ -18,7 +18,7 @@ const Input = memo((props: any) => {
         return <FaKey className="mr-2" color="gray" />;
 
       default:
-        <div></div>;
+        return <div></div>;
     }
   }
   return (
@@ -36,5 +36,7 @@ const Input = memo((props: any) => {
     </div>
   );
 });
+
+Input.displayName = "Input";
 
 export default Input;
