@@ -24,7 +24,7 @@ interface LoginFormData {
   username: string;
   email: string;
   password: string;
-  authError: string;
+  datepicker?: string;
 }
 
 const Signup: NextPage = () => {
@@ -100,7 +100,8 @@ const Signup: NextPage = () => {
                 </Error>
               )}
 
-              <DatePicker />
+              <DatePicker error={errors?.datepicker || null} />
+              {errors?.datepicker && <Error>Please Enter Date of Birth</Error>}
               <PrimaryBtn type="submit">Sign Up</PrimaryBtn>
               {msg && <p className="text-xs text-red-500">{msg}</p>}
             </div>
