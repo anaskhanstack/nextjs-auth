@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { AuthContextProvider } from "../context/context";
-import PrivateRoutes from "../components/PrivateRoutes";
+import { AuthContextProvider } from "@context/context";
+import PrivateRoutes from "@components/PrivateRoutes";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const protectedRoutes: [string] = ["/"];

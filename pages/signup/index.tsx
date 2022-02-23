@@ -4,9 +4,9 @@ import { useContext, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { useRouter } from "next/router";
 
-import SocialLogin from "../../components/SocialLogin";
-import { AuthContext } from "../../context/context";
-import Input from "../../components/Input";
+import SocialLogin from "@components/SocialLogin";
+import { AuthContext } from "@context/context";
+import Input from "@components/Input";
 import {
   Container,
   CardContainer,

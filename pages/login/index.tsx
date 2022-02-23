@@ -3,10 +3,11 @@ import { useForm, FormProvider } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 
-import { AuthContext } from "../../context/context";
+import { AuthContext } from "@context/context";
+import SocialLogin from "@components/SocialLogin";
+import Input from "@components/Input";
 
-import SocialLogin from "../../components/SocialLogin";
-import Input from "../../components/Input";
+import { Error, LineHorizontal } from "@styles/global.styles.tw";
 import {
   Container,
   CardContainer,
@@ -14,8 +15,7 @@ import {
   PrimaryBtn,
   SecondaryBtn,
   SideSection,
-} from "../../styles/auth.styles.tw";
-import { Error, LineHorizontal } from "../../styles/global.styles.tw";
+} from "@styles/auth.styles.tw";
 
 interface LoginFormData {
   email: string;

@@ -3,7 +3,7 @@ import { useContext } from "react";
 import Avatar from "react-avatar";
 
 import { IoIosLogOut } from "react-icons/io";
-import { AuthContext, IAuthContext } from "../context/context";
+import { AuthContext, IAuthContext } from "@context/context";
 
 const Home: NextPage = () => {
   const { user, onLogout } = useContext<IAuthContext>(AuthContext);
