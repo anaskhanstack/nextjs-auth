@@ -24,7 +24,7 @@ interface LoginFormData {
 
 const Login: NextPage = () => {
   const router = useRouter();
-  const { onLogin, user } = useContext(AuthContext);
+  const { onLogin } = useContext(AuthContext);
   const [msg, setMsg] = useState();
 
   const methods = useForm<LoginFormData>();
