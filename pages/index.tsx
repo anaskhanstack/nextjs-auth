@@ -3,15 +3,17 @@ import { useContext } from "react";
 import Avatar from "react-avatar";
 
 import { IoIosLogOut } from "react-icons/io";
+
+import { Container, Navbar, Nav } from "@styles/dashboard.styles.tw";
 import { AuthContext, IAuthContext } from "@context/context";
 
 const Home: NextPage = () => {
   const { user, onLogout } = useContext<IAuthContext>(AuthContext);
 
   return (
-    <div className="bg-gray-100 min-h-screen">
-      <div className="flex-1 flex flex-col ">
-        <nav className="px-4 flex justify-between  h-16 border-b-2 bg-gradient-to-r from-blue-500 to-blue-300">
+    <Container>
+      <Navbar>
+        <Nav>
           <ul className="flex items-center">
             <li className="h-6 w-6 text-white">Dashboard</li>
           </ul>
@@ -28,14 +30,14 @@ const Home: NextPage = () => {
               <Avatar name={user?.username} size="40px" round />
             </li>
           </ul>
-        </nav>
-      </div>
+        </Nav>
+      </Navbar>
       <div className="flex flex-col items-center justify-center">
         <h1>
           Welcome {user?.username}, <strong>{user?.email}</strong>
         </h1>
       </div>
-    </div>
+    </Container>
   );
 };
 

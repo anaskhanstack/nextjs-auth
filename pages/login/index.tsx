@@ -7,7 +7,7 @@ import { AuthContext } from "@context/context";
 import SocialLogin from "@components/SocialLogin";
 import Input from "@components/Input";
 
-import { Error, LineHorizontal } from "@styles/global.styles.tw";
+import { Error, LineHorizontal, Title } from "@styles/global.styles.tw";
 import {
   Container,
   CardContainer,
@@ -15,6 +15,7 @@ import {
   PrimaryBtn,
   SecondaryBtn,
   SideSection,
+  Logo,
 } from "@styles/auth.styles.tw";
 
 interface LoginFormData {
@@ -54,13 +55,11 @@ const Login: NextPage = () => {
       <CardContainer>
         <FormProvider {...methods}>
           <Form onSubmit={methods.handleSubmit(onSubmit)}>
-            <div className="font-bold text-left">
+            <Logo>
               <span className="text-blue-300">Onboarding</span>
-            </div>
+            </Logo>
             <div className="flex flex-col items-center py-10">
-              <h2 className="text-3xl font-bold text-blue-300 mb-2">
-                Login to Account
-              </h2>
+              <Title primary>Login to Account</Title>
               <LineHorizontal blue />
               <SocialLogin />
               <p className="text-gray-400 text-small mb-3">
@@ -81,7 +80,6 @@ const Login: NextPage = () => {
                 error={errors?.password || null}
                 validate={{
                   minLength: 6,
-                  message: "password must be greater then 6 characters",
                 }}
               />
               {errors?.password && (
@@ -107,7 +105,7 @@ const Login: NextPage = () => {
           </Form>
         </FormProvider>
         <SideSection>
-          <h2 className="text-3xl font-bold mb-2">Welcome</h2>
+          <Title>Welcome</Title>
           <LineHorizontal />
           <p className="mb-4 text-center">
             Fill up personal information and start journey with us

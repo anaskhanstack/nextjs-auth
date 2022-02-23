@@ -1,12 +1,14 @@
-import type { NextPage } from "next";
 import { useContext, useState } from "react";
 
 import { useForm, FormProvider } from "react-hook-form";
 import { useRouter } from "next/router";
+import type { NextPage } from "next";
 
 import SocialLogin from "@components/SocialLogin";
 import { AuthContext } from "@context/context";
 import Input from "@components/Input";
+
+import { Error, LineHorizontal, Title } from "@styles/global.styles.tw";
 import {
   Container,
   CardContainer,
@@ -14,8 +16,7 @@ import {
   PrimaryBtn,
   SecondaryBtn,
   SideSection,
-} from "../../styles/auth.styles.tw";
-import { Error, LineHorizontal } from "../../styles/global.styles.tw";
+} from "@styles/auth.styles.tw";
 
 interface LoginFormData {
   username: string;
@@ -23,10 +24,11 @@ interface LoginFormData {
   password: string;
   authError: string;
 }
+
 const Signup: NextPage = () => {
   const router = useRouter();
   const { onRegister } = useContext(AuthContext);
-  const [msg, setMsg] = useState();
+  const [msg, setMsg] = useState<string>();
 
   const methods = useForm<LoginFormData>();
   const {
@@ -58,9 +60,7 @@ const Signup: NextPage = () => {
               <span className="text-blue-300">Onboarding</span>
             </div>
             <div className="flex flex-col items-center py-10">
-              <h2 className="text-3xl font-bold text-blue-300 mb-2">
-                Register your Account
-              </h2>
+              <Title primary>Register your Account</Title>
               <LineHorizontal blue />
               <SocialLogin />
               <p className="text-gray-400 text-small mb-3">
@@ -104,7 +104,7 @@ const Signup: NextPage = () => {
           </Form>
         </FormProvider>
         <SideSection>
-          <h2 className="text-3xl font-bold mb-2">Welcome!</h2>
+          <Title>Welcome!</Title>
 
           <LineHorizontal />
 
